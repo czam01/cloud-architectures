@@ -2,7 +2,7 @@
 
 ## 📋 Descripción del Proyecto
 
-Este repositorio contiene **5 casos de estudio de arquitecturas cloud** diseñados específicamente para el análisis  de buenas prácticas y la identificación de errores comunes en el diseño de sistemas distribuidos. Cada arquitectura presenta diferentes niveles de madurez y cumplimiento con los frameworks de buenas prácticas de nube.
+Este repositorio contiene **10 casos de estudio de arquitecturas cloud** diseñados específicamente para el análisis  de buenas prácticas y la identificación de errores comunes en el diseño de sistemas distribuidos. Cada arquitectura presenta diferentes niveles de madurez y cumplimiento con los frameworks de buenas prácticas de nube.
 
 ---
 
@@ -63,21 +63,13 @@ Desarrollar la capacidad de **evaluar, diagnosticar y mejorar arquitecturas clou
 
 ### **Diagramas de Arquitectura**
 - **Mermaid.js** - Diagramas como código
-- **Draw.io** - Editor visual colaborativo
-- **Lucidchart** - Herramienta profesional
+
 
 ### **Frameworks de Referencia**
 - **AWS Well-Architected Framework**
 - **Azure Well-Architected Framework**
 - **Google Cloud Architecture Framework**
-- **TOGAF** - Enterprise Architecture
 
-### **Recursos Adicionales**
-- **AWS Architecture Center** - Patrones y referencias
-- **Cloud Design Patterns** - Microsoft Azure
-- **Site Reliability Engineering** - Google SRE Book
-
----
 
 ## 📈 Competencias Desarrolladas
 
