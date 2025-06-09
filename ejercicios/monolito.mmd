@@ -1,0 +1,38 @@
+graph TB
+    subgraph "Monolito"
+        LB[Load Balancer]
+        
+        subgraph "Tightly Coupled Services"
+            SVC1[Service A]
+            SVC2[Service B]
+            SVC3[Service C]
+            SVC4[Service D]
+        end
+        
+        subgraph "Shared Resources"
+            SHARED_DB[(Shared Database)]
+            SHARED_CACHE[(Shared Cache)]
+        end
+    end
+    
+    LB --> SVC1
+    LB --> SVC2
+    LB --> SVC3
+    LB --> SVC4
+    
+    SVC1 <--> SVC2
+    SVC2 <--> SVC3
+    SVC3 <--> SVC4
+    SVC1 <--> SVC4
+    SVC1 <--> SVC3
+    SVC2 <--> SVC4
+    
+    SVC1 --> SHARED_DB
+    SVC2 --> SHARED_DB
+    SVC3 --> SHARED_DB
+    SVC4 --> SHARED_DB
+    
+    SVC1 --> SHARED_CACHE
+    SVC2 --> SHARED_CACHE
+    SVC3 --> SHARED_CACHE
+    SVC4 --> SHARED_CACHE

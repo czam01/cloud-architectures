@@ -1,0 +1,57 @@
+graph TB
+    subgraph "API Gateway Layer"
+        APIGW[API Gateway + WAF]
+    end
+    
+    subgraph "Service Mesh"
+        subgraph "User Service"
+            USER_API[User API]
+            USER_DB[(User DB)]
+        end
+        
+        subgraph "Order Service"
+            ORDER_API[Order API]
+            ORDER_DB[(Order DB)]
+            ORDER_QUEUE[Order Queue]
+        end
+        
+        subgraph "Payment Service"
+            PAY_API[Payment API]
+            PAY_DB[(Payment DB)]
+        end
+        
+        subgraph "Inventory Service"
+            INV_API[Inventory API]
+            INV_DB[(Inventory DB)]
+        end
+    end
+    
+    subgraph "Cross-Cutting Concerns"
+        LOG[Centralized Logging]
+        MON[Monitoring/Metrics]
+        CONFIG[Config Service]
+    end
+    
+    APIGW --> USER_API
+    APIGW --> ORDER_API
+    APIGW --> PAY_API
+    APIGW --> INV_API
+    
+    USER_API --> USER_DB
+    ORDER_API --> ORDER_DB
+    ORDER_API --> ORDER_QUEUE
+    PAY_API --> PAY_DB
+    INV_API --> INV_DB
+    
+    ORDER_API -.-> PAY_API
+    ORDER_API -.-> INV_API
+    
+    USER_API --> LOG
+    ORDER_API --> LOG
+    PAY_API --> LOG
+    INV_API --> LOG
+    
+    USER_API --> MON
+    ORDER_API --> MON
+    PAY_API --> MON
+    INV_API --> MON

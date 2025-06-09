@@ -1,0 +1,38 @@
+graph TB
+    subgraph "Security Best Practices Architecture"
+        subgraph "Perimeter Security"
+            WAF[Web Application Firewall]
+            DDOS[DDoS Protection]
+        end
+        
+        subgraph "Identity & Access"
+            IAM[IAM Roles]
+            COGNITO[Cognito User Pool]
+            SSO[Single Sign-On]
+        end
+        
+        subgraph "Network Security"
+            VPC[VPC with Private Subnets]
+            NACL[Network ACLs]
+            SG[Security Groups]
+        end
+        
+        subgraph "Application Security"
+            SECRETS[Secrets Manager]
+            KMS[Key Management Service]
+            VAULT[HashiCorp Vault]
+        end
+        
+        subgraph "Monitoring & Compliance"
+            CLOUDTRAIL[CloudTrail]
+            GUARDDUTY[GuardDuty]
+            CONFIG[Config Rules]
+        end
+    end
+    
+    WAF --> VPC
+    COGNITO --> IAM
+    VPC --> SG
+    SG --> SECRETS
+    SECRETS --> KMS
+    CLOUDTRAIL --> GUARDDUTY

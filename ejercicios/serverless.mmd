@@ -1,0 +1,49 @@
+graph TB
+    subgraph "Event-Driven Serverless Architecture"
+        subgraph "API Layer"
+            APIGW[API Gateway]
+            AUTH[Cognito Auth]
+        end
+        
+        subgraph "Function Layer"
+            LAMBDA1[Lambda: User Mgmt]
+            LAMBDA2[Lambda: Order Process]
+            LAMBDA3[Lambda: Payment]
+            LAMBDA4[Lambda: Notification]
+        end
+        
+        subgraph "Event Layer"
+            SNS[SNS Topics]
+            SQS[SQS Queues]
+            EVENTBRIDGE[EventBridge]
+        end
+        
+        subgraph "Storage Layer"
+            DYNAMO[(DynamoDB)]
+            S3[(S3 Bucket)]
+            RDS[(RDS Serverless)]
+        end
+        
+        subgraph "External Services"
+            PAYMENT_API[Payment Gateway]
+            EMAIL_SVC[Email Service]
+        end
+    end
+    
+    APIGW --> AUTH
+    AUTH --> LAMBDA1
+    AUTH --> LAMBDA2
+    
+    LAMBDA1 --> DYNAMO
+    LAMBDA2 --> RDS
+    LAMBDA2 --> SNS
+    
+    SNS --> SQS
+    SQS --> LAMBDA3
+    SQS --> LAMBDA4
+    
+    LAMBDA3 --> PAYMENT_API
+    LAMBDA4 --> EMAIL_SVC
+    
+    LAMBDA2 --> EVENTBRIDGE
+    EVENTBRIDGE --> LAMBDA4
