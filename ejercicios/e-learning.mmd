@@ -1,0 +1,79 @@
+graph TB
+    subgraph "E-LEARNING"
+        subgraph "Frontend - Good"
+            REACT[React SPA]
+            CDN[CloudFront CDN]
+        end
+        
+        subgraph "Authentication - Problematic"
+            CUSTOM_AUTH[Custom Auth System]
+            USER_DB[(User Database)]
+            SESSION_STORE[Session Store]
+        end
+        
+        subgraph "Content Delivery - Mixed"
+            subgraph "Good: Video Streaming"
+                VIDEO_API[Video Streaming API]
+                S3_VIDEO[(S3 Video Storage)]
+                TRANSCODE[Transcoding Service]
+            end
+            
+            subgraph "Bad: File Management"
+                FILE_SERVER[File Server VM]
+                LOCAL_STORAGE[Local Disk Storage]
+            end
+        end
+        
+        subgraph "Learning Management - Issues"
+            MONOLITH[LMS Monolith]
+            SHARED_DB[(Shared Database)]
+            
+            subgraph "Tightly Coupled"
+                QUIZ_MODULE[Quiz Module]
+                GRADE_MODULE[Grade Module]
+                CERT_MODULE[Certificate Module]
+            end
+        end
+        
+        subgraph "Analytics - Outdated"
+            BATCH_ETL[Daily Batch ETL]
+            WAREHOUSE[(Data Warehouse)]
+            STATIC_REPORTS[Static Reports]
+        end
+        
+        subgraph "Infrastructure - Poor"
+            SINGLE_REGION[Single Region Only]
+            NO_BACKUP[No Automated Backup]
+            MANUAL_SCALING[Manual Scaling]
+        end
+    end
+    
+    REACT --> CDN
+    CDN --> CUSTOM_AUTH
+    CUSTOM_AUTH --> USER_DB
+    CUSTOM_AUTH --> SESSION_STORE
+    
+    CDN --> VIDEO_API
+    VIDEO_API --> S3_VIDEO
+    S3_VIDEO --> TRANSCODE
+    
+    CDN --> FILE_SERVER
+    FILE_SERVER --> LOCAL_STORAGE
+    
+    CUSTOM_AUTH --> MONOLITH
+    MONOLITH --> SHARED_DB
+    MONOLITH --> QUIZ_MODULE
+    MONOLITH --> GRADE_MODULE
+    MONOLITH --> CERT_MODULE
+    
+    SHARED_DB --> BATCH_ETL
+    BATCH_ETL --> WAREHOUSE
+    WAREHOUSE --> STATIC_REPORTS
+    
+    classDef good fill:#ccffcc,stroke:#00aa00,stroke-width:2px
+    classDef bad fill:#ffcccc,stroke:#ff0000,stroke-width:2px
+    classDef warning fill:#fff2cc,stroke:#ffaa00,stroke-width:2px
+    
+    class REACT,CDN,VIDEO_API,S3_VIDEO good
+    class CUSTOM_AUTH,FILE_SERVER,MONOLITH,BATCH_ETL bad
+    class USER_DB,SESSION_STORE,SHARED_DB warning

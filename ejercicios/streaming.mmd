@@ -1,0 +1,94 @@
+graph TB
+    subgraph "Streaming"
+        subgraph "Global Distribution"
+            subgraph "Multi-Region CDN"
+                CDN_US[CloudFront US]
+                CDN_EU[CloudFront EU]
+                CDN_ASIA[CloudFront Asia]
+            end
+            
+            subgraph "Edge Computing"
+                EDGE1[Lambda@Edge US]
+                EDGE2[Lambda@Edge EU]
+                EDGE3[Lambda@Edge Asia]
+            end
+        end
+        
+        subgraph "API & Authentication"
+            APIGW[API Gateway + Throttling]
+            COGNITO[Cognito User Pool]
+            AUTHORIZER[Lambda Authorizer]
+        end
+        
+        subgraph "Microservices Architecture"
+            subgraph "User Service"
+                USER_API[User API]
+                USER_DB[(DynamoDB Global Tables)]
+            end
+            
+            subgraph "Content Service"
+                CONTENT_API[Content API]
+                S3_CONTENT[(S3 Multi-Region)]
+            end
+            
+            subgraph "Streaming Service"
+                STREAM_API[Streaming API]
+                KINESIS[Kinesis Video Streams]
+            end
+            
+            subgraph "Analytics Service"
+                ANALYTICS[Real-time Analytics]
+                FIREHOSE[Kinesis Data Firehose]
+                ANALYTICS_DB[(Redshift)]
+            end
+        end
+        
+        subgraph "Event-Driven Architecture"
+            EVENT_BUS[EventBridge]
+            SQS_DLQ[SQS + Dead Letter Queue]
+            SNS[SNS Fan-out]
+        end
+        
+        subgraph "Observability"
+            XRAY[X-Ray Distributed Tracing]
+            CW_LOGS[CloudWatch Logs]
+            CW_METRICS[CloudWatch Metrics]
+            DASHBOARD[CloudWatch Dashboard]
+        end
+    end
+    
+    CDN_US --> EDGE1
+    CDN_EU --> EDGE2
+    CDN_ASIA --> EDGE3
+    
+    EDGE1 --> APIGW
+    APIGW --> COGNITO
+    COGNITO --> AUTHORIZER
+    
+    AUTHORIZER --> USER_API
+    AUTHORIZER --> CONTENT_API
+    AUTHORIZER --> STREAM_API
+    
+    USER_API --> USER_DB
+    CONTENT_API --> S3_CONTENT
+    STREAM_API --> KINESIS
+    
+    STREAM_API --> EVENT_BUS
+    EVENT_BUS --> SQS_DLQ
+    EVENT_BUS --> ANALYTICS
+    
+    ANALYTICS --> FIREHOSE
+    FIREHOSE --> ANALYTICS_DB
+    
+    USER_API --> XRAY
+    CONTENT_API --> CW_LOGS
+    STREAM_API --> CW_METRICS
+    CW_METRICS --> DASHBOARD
+    
+    classDef excellent fill:#ccffcc,stroke:#00aa00,stroke-width:2px
+    classDef global fill:#e6f3ff,stroke:#0080ff,stroke-width:2px
+    classDef observability fill:#f0e6ff,stroke:#8000ff,stroke-width:2px
+    
+    class USER_API,CONTENT_API,STREAM_API excellent
+    class CDN_US,CDN_EU,CDN_ASIA global
+    class XRAY,CW_LOGS,CW_METRICS observability

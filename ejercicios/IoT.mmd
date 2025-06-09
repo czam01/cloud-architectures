@@ -1,0 +1,44 @@
+graph TB
+    subgraph "IoT"
+        subgraph "IoT Devices"
+            DEVICE1[Device 1]
+            DEVICE2[Device 2]
+            DEVICE_N[Device N...]
+        end
+        
+        subgraph "Single Instance Architecture"
+            GATEWAY[Single API Gateway]
+            BROKER[Single Message Broker]
+            PROCESSOR[Single Data Processor]
+            
+            subgraph "Storage Issues"
+                RELATIONAL[(Relational DB for Time Series)]
+                FILESYSTEM[Local File Storage]
+            end
+        end
+        
+        subgraph "Analytics"
+            BATCH[Daily Batch Processing]
+            REPORTS[Static Reports]
+        end
+        
+        subgraph "No Monitoring"
+            BLACKBOX[Black Box - No Observability]
+        end
+    end
+    
+    DEVICE1 --> GATEWAY
+    DEVICE2 --> GATEWAY
+    DEVICE_N --> GATEWAY
+    GATEWAY --> BROKER
+    BROKER --> PROCESSOR
+    PROCESSOR --> RELATIONAL
+    PROCESSOR --> FILESYSTEM
+    PROCESSOR --> BATCH
+    BATCH --> REPORTS
+    
+    classDef bottleneck fill:#ffcccc,stroke:#ff0000,stroke-width:3px
+    classDef poor fill:#fff2cc,stroke:#ffaa00,stroke-width:2px
+    
+    class GATEWAY,BROKER,PROCESSOR bottleneck
+    class RELATIONAL,FILESYSTEM,BATCH poor
