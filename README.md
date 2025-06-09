@@ -48,7 +48,7 @@ Desarrollar la capacidad de **evaluar, diagnosticar y mejorar arquitecturas clou
 
 ### **1. 📚 Sistema Bancario**
 ### **2. 📚 Plataforma de Salud**
-### **3. 📚 Plataforma IoT **
+### **3. 📚 Plataforma IoT**
 ### **4. 📚 Plataforma de Streaming**
 ### **5. 📚 Plataforma E-Learning**
 ### **6. 📚 Plataforma Serverless**
