@@ -1,0 +1,71 @@
+graph TB
+    subgraph "Hospital de los Alpes"
+        subgraph "WAF + DDoS Protection"
+            WAF[Web Application Firewall]
+            SHIELD[AWS Shield Advanced]
+        end
+        
+        subgraph "Multi-Region Setup"
+            subgraph "Primary Region"
+                subgraph "DMZ"
+                    ALB[Application Load Balancer]
+                    NAT[NAT Gateway]
+                end
+                
+                subgraph "Private Subnet AZ-A"
+                    WEB1[Web Tier - AZ-A]
+                    APP1[App Tier - AZ-A]
+                end
+                
+                subgraph "Private Subnet AZ-B"
+                    WEB2[Web Tier - AZ-B]
+                    APP2[App Tier - AZ-B]
+                end
+                
+                subgraph "Database Tier"
+                    RDS_PRIM[(RDS Multi-AZ Encrypted)]
+                    CACHE[(ElastiCache)]
+                end
+                
+                subgraph "Security & Compliance"
+                    KMS[Key Management Service]
+                    SECRETS[AWS Secrets Manager]
+                    AUDIT[CloudTrail + Config]
+                end
+            end
+            
+            subgraph "DR Region"
+                RDS_DR[(RDS Read Replica)]
+                S3_DR[(S3 Cross-Region)]
+            end
+        end
+        
+        subgraph "Monitoring & Ops"
+            CLOUDWATCH[CloudWatch]
+            XRAY[X-Ray Tracing]
+            SNS[SNS Alerts]
+        end
+    end
+    
+    WAF --> SHIELD
+    SHIELD --> ALB
+    ALB --> WEB1
+    ALB --> WEB2
+    WEB1 --> APP1
+    WEB2 --> APP2
+    APP1 --> RDS_PRIM
+    APP2 --> RDS_PRIM
+    APP1 --> CACHE
+    APP2 --> CACHE
+    RDS_PRIM --> KMS
+    APP1 --> SECRETS
+    RDS_PRIM --> RDS_DR
+    APP1 --> CLOUDWATCH
+    APP2 --> XRAY
+    CLOUDWATCH --> SNS
+    
+    classDef good fill:#ccffcc,stroke:#00aa00,stroke-width:2px
+    classDef security fill:#cce5ff,stroke:#0066cc,stroke-width:2px
+    
+    class ALB,WEB1,WEB2,APP1,APP2 good
+    class WAF,KMS,SECRETS,AUDIT security

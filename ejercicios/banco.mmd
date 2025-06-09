@@ -1,0 +1,36 @@
+graph TB
+    subgraph "Banco de los Alpes"
+        Internet[Internet Users]
+        
+        subgraph "Single Region - No DR"
+            subgraph "Public Subnet - EXPOSED"
+                WEB[Web Server]
+                APP[Application Server]
+                DB[(Database Server)]
+            end
+            
+            subgraph "Storage"
+                LOGS[Application Logs]
+                BACKUP[Backup Files]
+            end
+        end
+        
+        subgraph "External Services"
+            PAYMENT[Payment Gateway]
+            CREDIT[Credit Bureau API]
+        end
+    end
+    
+    Internet --> WEB
+    WEB --> APP
+    APP --> DB
+    APP --> PAYMENT
+    APP --> CREDIT
+    APP --> LOGS
+    DB --> BACKUP
+    
+    classDef error fill:#ffcccc,stroke:#ff0000,stroke-width:2px
+    classDef warning fill:#fff2cc,stroke:#ffaa00,stroke-width:2px
+    
+    class WEB,APP,DB error
+    class LOGS,BACKUP warning

@@ -1,0 +1,52 @@
+graph TB
+    subgraph "Internet"
+        U[Users]
+        CDN[CloudFront CDN]
+    end
+    
+    subgraph "AWS Region 1 (Primary)"
+        subgraph "Public Subnet"
+            ALB[Application Load Balancer]
+            NAT[NAT Gateway]
+        end
+        
+        subgraph "Private Subnet AZ-A"
+            API1[API Gateway]
+            WEB1[Web App Instance]
+            APP1[App Server]
+        end
+        
+        subgraph "Private Subnet AZ-B"
+            API2[API Gateway Replica]
+            WEB2[Web App Instance]
+            APP2[App Server]
+        end
+        
+        subgraph "Data Layer"
+            RDS[(RDS Multi-AZ)]
+            REDIS[(ElastiCache Redis)]
+            S3[(S3 Bucket)]
+        end
+    end
+    
+    subgraph "AWS Region 2 (DR)"
+        DR[Disaster Recovery]
+        RDS_DR[(RDS Read Replica)]
+        S3_DR[(S3 Cross-Region Replication)]
+    end
+    
+    U --> CDN
+    CDN --> ALB
+    ALB --> API1
+    ALB --> API2
+    API1 --> WEB1
+    API2 --> WEB2
+    WEB1 --> APP1
+    WEB2 --> APP2
+    APP1 --> RDS
+    APP2 --> RDS
+    APP1 --> REDIS
+    APP2 --> REDIS
+    APP1 --> S3
+    RDS --> RDS_DR
+    S3 --> S3_DR
