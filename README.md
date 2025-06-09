@@ -46,11 +46,16 @@ Desarrollar la capacidad de **evaluar, diagnosticar y mejorar arquitecturas clou
 
 ## 📚 Casos de Estudio Incluidos
 
-### **1. 🏦 Sistema Bancario - Errores Críticos**
-### **2. 🏥 Plataforma de Salud - Buenas Prácticas**
-### **3. 🌐 Plataforma IoT - Problemas de Escalabilidad**
-### **4. 📺 Plataforma de Streaming - Optimizada**
-### **5. 📖 Plataforma E-Learning - Arquitectura Híbrida**
+### **1. 📚 Sistema Bancario**
+### **2. 📚 Plataforma de Salud**
+### **3. 📚 Plataforma IoT **
+### **4. 📚 Plataforma de Streaming**
+### **5. 📚 Plataforma E-Learning**
+### **6. 📚 Plataforma Serverless**
+### **7. 📚 Microservicios**
+### **8. 📚 Microservicios Anti Patron**
+### **9. 📚 Seguridad**. 
+### **10.📚 Monolito**
 
 
 
