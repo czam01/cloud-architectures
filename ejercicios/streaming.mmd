@@ -1,59 +1,59 @@
 graph TB
-    subgraph "Streaming"
+    subgraph "✅ STREAMING PLATFORM - Cloud Native"
         subgraph "Global Distribution"
             subgraph "Multi-Region CDN"
-                CDN_US[CloudFront US]
-                CDN_EU[CloudFront EU]
-                CDN_ASIA[CloudFront Asia]
+                CDN_US["CloudFront US"]
+                CDN_EU["CloudFront EU"]
+                CDN_ASIA["CloudFront Asia"]
             end
             
             subgraph "Edge Computing"
-                EDGE1[Lambda@Edge US]
-                EDGE2[Lambda@Edge EU]
-                EDGE3[Lambda@Edge Asia]
+                EDGE1["Lambda@Edge US"]
+                EDGE2["Lambda@Edge EU"]
+                EDGE3["Lambda@Edge Asia"]
             end
         end
         
         subgraph "API & Authentication"
-            APIGW[API Gateway + Throttling]
-            COGNITO[Cognito User Pool]
-            AUTHORIZER[Lambda Authorizer]
+            APIGW["API Gateway + Throttling"]
+            COGNITO["Cognito User Pool"]
+            AUTHORIZER["Lambda Authorizer"]
         end
         
         subgraph "Microservices Architecture"
             subgraph "User Service"
-                USER_API[User API]
+                USER_API["User API"]
                 USER_DB[(DynamoDB Global Tables)]
             end
             
             subgraph "Content Service"
-                CONTENT_API[Content API]
+                CONTENT_API["Content API"]
                 S3_CONTENT[(S3 Multi-Region)]
             end
             
             subgraph "Streaming Service"
-                STREAM_API[Streaming API]
-                KINESIS[Kinesis Video Streams]
+                STREAM_API["Streaming API"]
+                KINESIS["Kinesis Video Streams"]
             end
             
             subgraph "Analytics Service"
-                ANALYTICS[Real-time Analytics]
-                FIREHOSE[Kinesis Data Firehose]
+                ANALYTICS["Real-time Analytics"]
+                FIREHOSE["Kinesis Data Firehose"]
                 ANALYTICS_DB[(Redshift)]
             end
         end
         
         subgraph "Event-Driven Architecture"
-            EVENT_BUS[EventBridge]
-            SQS_DLQ[SQS + Dead Letter Queue]
-            SNS[SNS Fan-out]
+            EVENT_BUS["EventBridge"]
+            SQS_DLQ["SQS + Dead Letter Queue"]
+            SNS["SNS Fan-out"]
         end
         
         subgraph "Observability"
-            XRAY[X-Ray Distributed Tracing]
-            CW_LOGS[CloudWatch Logs]
-            CW_METRICS[CloudWatch Metrics]
-            DASHBOARD[CloudWatch Dashboard]
+            XRAY["X-Ray Distributed Tracing"]
+            CW_LOGS["CloudWatch Logs"]
+            CW_METRICS["CloudWatch Metrics"]
+            DASHBOARD["CloudWatch Dashboard"]
         end
     end
     
